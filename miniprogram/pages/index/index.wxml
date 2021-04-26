@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<wxs module="common" src="/utils/common.wxs"></wxs>
+<view class="container">
+  <view class="header">
+    <view class="h2"><text>2021</text>年<text>4</text>月</view>
+    <view class="statistic">
+      <view class="output">总支出：<text>{{common.numberFormat(10005.25)}}</text></view>
+      <view class="input">总收入：<text>1,000.25</text></view>
+    </view>
+  </view>
+  明细
+
+</view>
