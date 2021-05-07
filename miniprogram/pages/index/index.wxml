@@ -2,12 +2,15 @@
 <wxs module="common" src="/utils/common.wxs"></wxs>
 <view class="container">
   <view class="header">
-    <view class="h2" bindtap="openPicker"><text>2021</text>年<text>4</text>月</view>
+    <picker mode="date" value="{{selectedDate}}" bindchange="onConfirmTime">
+      <view class="h2" bindtap="openPicker"><text>2021</text>年<text>4</text>月</view>
+    </picker>
+
     <view class="statistic">
       <view class="output">总支出：<text>{{common.numberFormat(10005.25)}}</text></view>
       <view class="input">总收入：<text>1,000.25</text></view>
     </view>
   </view>
 
-  <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-style="height: 20%" :z-index="1000">内容</van-popup>
+  <!-- <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-style="height: 20%" :z-index="1000">内容</van-popup> -->
 </view>
