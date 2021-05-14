@@ -1,0 +1,11 @@
+<view class="header">
+  <wxs module="common" src="/utils/common.wxs"></wxs>
+    <picker mode="date" bindchange="onConfirmTime" fields="month">
+      <view class="h2" bindtap="openPicker"><text>{{timeObj.year}}</text>年<text>{{timeObj.month}}</text>月</view>
+    </picker>
+
+    <view class="statistic">
+      <view class="output">总支出：<text>{{common.numberFormat(output)}}</text></view>
+      <view class="input">总收入：<text>{{common.numberFormat(input)}}</text></view>
+    </view>
+  </view>

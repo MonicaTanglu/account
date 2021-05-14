@@ -1,0 +1,9 @@
+
+
+<view class="plus">
+  <van-icon name="edit" />
+</view>
+
+<van-tabbar active="{{ selected }}" bind:change="switchTab" active-color="#FF2712">
+  <van-tabbar-item wx:for="{{list}}" wx:key="index"  icon="{{item.icon}}">{{item.text}}</van-tabbar-item>
+</van-tabbar>

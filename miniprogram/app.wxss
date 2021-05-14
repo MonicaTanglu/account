@@ -154,3 +154,6 @@ page {
   line-height: 36rpx;
   word-break: break-all;
 }
+top-header {
+  width: 100%;
+}

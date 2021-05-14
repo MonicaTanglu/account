@@ -18,7 +18,7 @@ Page({
   },
 
   onLoad: function () {
-
+    
   },
   buttontap(e) {
     console.log(e.detail)
@@ -32,6 +32,17 @@ Page({
     this.setData({
       show: false
     })
-  }
+  },
+  
+  onShow: function () {
+    this.setBarSelected()
+  },
+  setBarSelected() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0
+      })
+    }
+  },
 
 })

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "van-popup": "@vant/weapp/popup/index"
+    "van-popup": "@vant/weapp/popup/index",
+    "top-header": "/components/top-header/top-header"
   }
 }
