@@ -1,0 +1,7 @@
+<!--pages/category/category.wxml-->
+<view class="category">
+  <view class="tab-change">
+    <text class="output {{tabIndex === '1'? 'active-tab-output': ''}}" data-index="1" bindtap="changeTab">支出</text>
+    <text class="input {{tabIndex === '2'? 'active-tab-input': ''}}" data-index="2" bindtap="changeTab">收入</text>
+  </view>
+</view>

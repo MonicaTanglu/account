@@ -1,0 +1,30 @@
+/* pages/category/category.wxss */
+.category {
+  margin: 10px;
+  background: #fff;
+  padding: 10px 16px;
+}
+.category .tab-change .output,.category .tab-change .input {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 60px;
+  border: 1px solid #D7D7D7;
+  text-align: center;
+}
+.category .tab-change .output {
+  border-right: 0px;
+}
+.category .tab-change .input {
+  border-left: 0px;
+}
+.category .tab-change .active-tab-output {
+  background: #FF2712;
+  color: #fff;
+  border-color: #FF2712;
+}
+.category .tab-change .active-tab-input {
+  background: #66B032;
+  color: #fff;
+  border-color: #66B032;
+}

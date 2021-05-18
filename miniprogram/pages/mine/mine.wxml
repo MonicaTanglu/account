@@ -1,2 +1,9 @@
 <!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<van-cell-group class="m-t-10">
+  <van-cell title="同步" >
+    <van-switch checked="{{ checked }}" size="20px"  bind:change="onChange"/>
+  </van-cell>
+
+  <van-cell title="类别管理" is-link url="/pages/category/category" />
+</van-cell-group>
+

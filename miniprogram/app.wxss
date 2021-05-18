@@ -1,4 +1,6 @@
 /**app.wxss**/
+@import './style/font-awesome.wxss';
+@import './style/stylesheet.wxss';
 .container {
   display: flex;
   flex-direction: column;
@@ -156,4 +158,7 @@ page {
 }
 top-header {
   width: 100%;
+}
+.m-t-10 {
+  margin-top: 10px;
 }

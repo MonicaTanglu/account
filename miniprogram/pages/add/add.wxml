@@ -1,0 +1,29 @@
+<!--pages/add/add.wxml-->
+<view class="header">
+  <wxs module="common" src="/utils/common.wxs"></wxs>
+  <picker mode="date" bindchange="onConfirmTime" fields="day">
+    <view class="h2" bindtap="openPicker">
+      <text>{{timeObj.year}}</text>年<text>{{timeObj.month}}</text>月<text>{{timeObj.day}}</text>日</view>
+  </picker>
+</view>
+
+<view class="content">
+  <view class="tab-change">
+    <text class="output {{tabIndex === '1'? 'active-tab-output': ''}}" data-index="1" bindtap="changeTab">支出</text>
+    <text class="input {{tabIndex === '2'? 'active-tab-input': ''}}" data-index="2" bindtap="changeTab">收入</text>
+  </view>
+  <view class="type flex m-t-10">
+    <block wx:for="{{currentIcons}}" wx:for-index="index" wx:key="index" wx:for-item="icon">
+      <view class="icon-item {{activeIconIndex===index ? 'active-icon-'+tabIndex:''}}" data-index="{{index}}" bindtap="selectIcon">
+        <text class="fa fa-{{icon.icon}}"></text>
+        <view>{{icon.text}}</view>
+      </view>
+    </block>
+    <view>
+      <input class="money" placeholder="金额" bindinput="inputChange" />
+    </view>
+    <view class="bottom-btn">
+      <van-button color="#FF2712" round bind:click="add">确定</van-button>
+    </view>
+  </view>
+</view>

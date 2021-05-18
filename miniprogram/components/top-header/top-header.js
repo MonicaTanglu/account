@@ -26,13 +26,11 @@ Component({
 
   lifetimes: {
     ready() {
-      console.log('sjdsjh')
       let now = new Date()
       this.setData({
         'timeObj.year': now.getFullYear(),
         'timeObj.month': now.getMonth() + 1
       })
-      console.log(this.data.timeObj, 'timeObj')
     }
   },
   /**

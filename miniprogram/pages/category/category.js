@@ -1,11 +1,11 @@
-// pages/mine/mine.js
+// pages/category/category.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    checked: false
+    tabIndex: '1'
   },
 
   /**
@@ -14,28 +14,12 @@ Page({
   onLoad: function (options) {
 
   },
-  onChange(e) {
+  changeTab(e) {
+    let index = e.currentTarget.dataset.index
     this.setData({
-      checked: true
+      tabIndex: index,
     })
-    wx.showLoading({
-      title: '同步中',
-    })
-    setTimeout(() => {
-      wx.hideLoading({
-        success: (res) => {
-          wx.showToast({
-            title: '同步完成',
-            icon: 'success'
-          })
-          this.setData({
-            checked: false
-          })
-        },
-      })
-    }, 2000);
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -47,16 +31,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setBarSelected()
+
   },
-  setBarSelected() {
-    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 2
-      })
-    }
-  },
-  
 
   /**
    * 生命周期函数--监听页面隐藏
