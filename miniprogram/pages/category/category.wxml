@@ -5,6 +5,23 @@
     <text class="input {{tabIndex === '2'? 'active-tab-input': ''}}" data-index="2" bindtap="changeTab">收入</text>
   </view>
   <view>
-    
+
+    <van-cell-group>
+      <van-swipe-cell wx:for="{{currentIcons}}"  wx:for-index="index" wx:key="index" wx:for-item="icon" id="swipe-cell" right-width="{{ 64 }}" async-close bind:close="onClose">
+        <van-cell title="{{icon.text}}" >
+          <text slot="icon"  class="fa fa-{{icon.icon}}" ></text>
+        </van-cell>
+        <view slot="right" class="van-swipe-cell__right">删除</view>
+      </van-swipe-cell>
+      <!-- <van-swipe-cell id="swipe-cell" right-width="{{ 64 }}" async-close   bind:close="onClose">
+        <van-cell title="单元格" />
+        <view slot="right" class="van-swipe-cell__right">删除</view>
+      </van-swipe-cell> -->
+    </van-cell-group>
+
+
   </view>
+  <view class="bottom-btn">
+      <van-button color="#FF2712" round bind:click="add">确定</van-button>
+    </view>
 </view>

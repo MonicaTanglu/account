@@ -35,5 +35,10 @@ Component({
       //   selected: data.index
       // })
     },
+    goto() {
+      wx.navigateTo({
+        url: '/pages/add/add',
+      })
+    }
   }
 })

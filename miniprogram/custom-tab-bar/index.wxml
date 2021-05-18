@@ -1,6 +1,6 @@
 
 
-<view class="plus">
+<view class="plus" bindtap="goto">
   <van-icon name="edit" />
 </view>
 

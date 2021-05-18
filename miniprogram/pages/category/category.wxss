@@ -28,3 +28,21 @@
   color: #fff;
   border-color: #66B032;
 }
+.van-swipe-cell__right {
+  height: 100%;
+  line-height: 2.5;
+  width: 64px;
+  text-align: center;
+  background: red;
+  color: #fff;
+}
+.fa {
+  position: relative;
+  top: 6px;
+  margin-right: 10px;
+}
+.bottom-btn {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 0 20px 0;
+}

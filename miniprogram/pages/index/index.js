@@ -1,4 +1,5 @@
 //index.js
+const icons = require('../../utils/category')
 const app = getApp()
 
 Page({
@@ -18,7 +19,10 @@ Page({
   },
 
   onLoad: function () {
-    
+    let category = wx.getStorageSync('category')
+    if(!category) {
+      wx.setStorageSync('category', icons.icons)
+    }
   },
   buttontap(e) {
     console.log(e.detail)

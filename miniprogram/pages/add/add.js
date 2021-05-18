@@ -1,5 +1,5 @@
 // pages/add/add.js
-const icons = require('../../utils/category')
+const iconData = require('../../utils/category')
 Page({
 
   /**
@@ -14,9 +14,9 @@ Page({
     money: null,
     tabIndex: '1',
     activeIconIndex: 1,
-    inputIcons: icons.icons.input,
-    outputIcons: icons.icons.output,
-    currentIcons: icons.icons.output,
+    inputIcons: null,
+    outputIcons: null,
+    currentIcons: null,
     currentIconText: ''
   },
 
@@ -24,11 +24,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let icons = wx.getStorageSync('category')
+    if(!icons) icons = iconData.icons 
     let now = new Date()
     this.setData({
       'timeObj.year': now.getFullYear(),
       'timeObj.month': now.getMonth() + 1,
-      'timeObj.day': now.getDate()
+      'timeObj.day': now.getDate(),
+      inputIcons: icons.input,
+      outputIcons: icons.output,
+      currentIcons: icons.output
     })
   },
 

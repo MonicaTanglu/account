@@ -1,5 +1,5 @@
 // pages/category/category.js
-const icons = require('../../utils/category')
+// const icons = require('../../utils/category')
 Page({
 
   /**
@@ -7,21 +7,54 @@ Page({
    */
   data: {
     tabIndex: '1',
-    inputIcons: icons.icons.input,
-    outputIcons: icons.icons.output
+    inputIcons: null,
+    outputIcons: null,
+    currentIcons: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let icons = wx.getStorageSync('category')
+    if(icons) {
+      this.setData({
+        inputIcons: icons.input,
+        outputIcons: icons.output,
+        currentIcons: icons.output
+      })
+    }
+    
   },
   changeTab(e) {
     let index = e.currentTarget.dataset.index
+    let icons = index === '1' ? this.data.outputIcons : this.data.inputIcons
     this.setData({
       tabIndex: index,
+      currentIcons: icons
     })
+  },
+  onClose(event) {
+    const { position, instance } = event.detail;
+    switch (position) {
+      case 'left':
+      case 'cell':
+        break;
+      case 'right':
+        wx.showModal({
+          title: '提示',
+          content: '确定要删除吗？',
+          success: (res) => {
+            if(res.confirm) {
+
+            }
+          }
+        })
+        break;
+    }
+  },
+  add() {
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
