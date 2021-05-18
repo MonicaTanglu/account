@@ -1,11 +1,14 @@
 // pages/category/category.js
+const icons = require('../../utils/category')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tabIndex: '1'
+    tabIndex: '1',
+    inputIcons: icons.icons.input,
+    outputIcons: icons.icons.output
   },
 
   /**
