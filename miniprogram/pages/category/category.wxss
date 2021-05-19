@@ -36,7 +36,7 @@
   background: red;
   color: #fff;
 }
-.fa {
+.list-icon {
   position: relative;
   top: 6px;
   margin-right: 10px;
@@ -45,4 +45,49 @@
   text-align: center;
   margin-top: 20px;
   padding: 10px 0 20px 0;
+}
+
+.icon-item {
+  width: 40px;
+  display: inline-block;
+  min-width: 40px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  white-space: nowrap;
+  color: #333;
+  margin: 6px 0;
+  padding: 6px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center ;
+}
+.pop-view {
+  width: 300px;
+  padding: 10px;
+}
+.category-name {
+  height: 40px;
+  border: 1px solid #d7d7d7;
+  line-height: 40px;
+  padding-left: 10px;
+  border-radius: 4px;
+  margin: 10px;
+  text-align: center;
+}
+.center {
+  text-align: center;
+}
+
+.active-icon-1 {
+  color: #fff;
+  background: #FF2712;
+}
+.active-icon-2 {
+  color: #fff;
+  background: #66B032;
 }

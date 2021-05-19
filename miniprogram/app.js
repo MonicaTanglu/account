@@ -1,4 +1,5 @@
 //app.js
+const iconData = require('utils/category')
 App({
   onLaunch: function () {
     if (!wx.cloud) {
@@ -13,7 +14,19 @@ App({
         traceUser: true,
       })
     }
-
-    this.globalData = {}
+    let category = wx.getStorageSync('category')
+    let records = wx.getStorageSync('records')
+    this.globalData.records = records
+    if (category) {
+      this.globalData.category = category
+    } else {
+      wx.setStorageSync('category', iconData.icons)
+      this.globalData.category = iconData.icons
+    }
+    // this.globalData = {}
+  },
+  globalData: {
+    category: null,
+    records: null
   }
 })

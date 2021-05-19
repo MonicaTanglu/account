@@ -1,6 +1,9 @@
 {
   "usingComponents": {
     "van-popup": "@vant/weapp/popup/index",
-    "top-header": "/components/top-header/top-header"
+    "top-header": "/components/top-header/top-header",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index"
   }
 }

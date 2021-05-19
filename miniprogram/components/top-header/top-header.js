@@ -46,6 +46,10 @@ Component({
       this.setData({
         timeObj
       })
+      this.triggerEvent('timeChange', {
+        year: timeObj.year,
+        month: timeObj.month
+      })
     }
   }
 })

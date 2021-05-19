@@ -7,11 +7,12 @@
   <view>
 
     <van-cell-group>
-      <van-swipe-cell wx:for="{{currentIcons}}"  wx:for-index="index" wx:key="index" wx:for-item="icon" id="swipe-cell" right-width="{{ 64 }}" async-close bind:close="onClose">
-        <van-cell title="{{icon.text}}" >
-          <text slot="icon"  class="fa fa-{{icon.icon}}" ></text>
+      <van-swipe-cell wx:for="{{currentIcons}}" wx:for-index="index" wx:key="index" wx:for-item="icon" id="swipe-cell"
+        right-width="{{ 64 }}">
+        <van-cell title="{{icon.text}}">
+          <text slot="icon" class="list-icon fa fa-{{icon.icon}}"></text>
         </van-cell>
-        <view slot="right" class="van-swipe-cell__right">删除</view>
+        <view slot="right" class="van-swipe-cell__right" bindtap="remove" data-index="{{index}}">删除</view>
       </van-swipe-cell>
       <!-- <van-swipe-cell id="swipe-cell" right-width="{{ 64 }}" async-close   bind:close="onClose">
         <van-cell title="单元格" />
@@ -22,6 +23,31 @@
 
   </view>
   <view class="bottom-btn">
-      <van-button color="#FF2712" round bind:click="add">确定</van-button>
-    </view>
+    <van-button color="#FF2712" round bind:click="add">确定</van-button>
+  </view>
 </view>
+
+<van-popup show="{{popShow}}" bind:close="closePop">
+  <view class="pop-view">
+    <view class="flex">
+      <text>类名</text>
+      <input placeholder="请输入类名"  style="text-align:left" class="category-name" bindinput="inputChange" />
+    </view>
+
+    <view class="type m-t-10">
+      <block wx:for="{{otherIcons}}" wx:for-index="index" wx:key="index" wx:for-item="icon">
+        <view class="icon-item {{activeIconIndex===index ? 'active-icon-'+tabIndex:''}}" data-index="{{index}}"
+          bindtap="selectIcon">
+          <text class="fa fa-{{icon.icon}}"></text>
+        </view>
+      </block>
+    </view>
+
+    <view class="center m-t-10 m-b-10">
+      <button class="mini-btn" type="default" size="mini" bindtap="closePop">取消</button>
+      <button class="mini-btn" class="m-l-10" type="warn" size="mini" bindtap="confirmPop">确定</button>
+      <!-- <van-button type="default" size="mini" square >取消</van-button>
+      <van-button color="#FF2712" class="m-l-10" size="mini">确定</van-button> -->
+    </view>
+  </view>
+</van-popup>

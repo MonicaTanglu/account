@@ -1,11 +1,11 @@
 {
   "pages": [
+    
     "pages/index/index",
-    "pages/category/category",
     "pages/mine/mine",
     
     "pages/statistics/statistics",
-    
+    "pages/category/category",
     "pages/add/add"
   ],
   "window": {

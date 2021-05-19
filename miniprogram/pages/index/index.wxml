@@ -1,7 +1,19 @@
 <!--index.wxml-->
 
 <view class="container">
-  <top-header output="{{12582.21}}" input="{{857958.25}}"></top-header>
+  <top-header output="{{12582.21}}" input="{{857958.25}}" bind:timeChange="timeChange"></top-header>
 
   <!-- <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-style="height: 20%" :z-index="1000">内容</van-popup> -->
 </view>
+<view class="m-t-10">
+    <van-empty wx:if="{{!records}}" description="暂无记录" />
+    <view wx:else>
+      <van-cell-group>
+        <van-cell wx:for="{{records}}" wx:for-index="index" wx:key="index" wx:for-item="item" title="{{item.text}}" label="{{item.remark}}" >
+          <text slot="icon" class="fa fa-{{iconObj[item.text]}}"></text>
+          <view>{{item.type === '1'? '-': '+'}}{{item.money}}</view>
+        </van-cell>
+
+      </van-cell-group>
+    </view>
+  </view>

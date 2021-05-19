@@ -20,7 +20,8 @@
       </view>
     </block>
     <view>
-      <input class="money" placeholder="金额" bindinput="inputChange" />
+      <input class="money" placeholder="金额" data-field="money" bindinput="inputChange" />
+      <input class="money" placeholder="备注" data-field="remark" bindinput="inputChange" />
     </view>
     <view class="bottom-btn">
       <van-button color="#FF2712" round bind:click="add">确定</van-button>

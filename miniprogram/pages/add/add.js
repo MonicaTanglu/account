@@ -1,5 +1,6 @@
 // pages/add/add.js
 const iconData = require('../../utils/category')
+const app = getApp()
 Page({
 
   /**
@@ -12,6 +13,7 @@ Page({
       day: null
     },
     money: null,
+    field: '',
     tabIndex: '1',
     activeIconIndex: 1,
     inputIcons: null,
@@ -24,8 +26,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let icons = wx.getStorageSync('category')
-    if(!icons) icons = iconData.icons 
+    let icons = app.globalData.icons
+    if (!icons) icons = iconData.icons
     let now = new Date()
     this.setData({
       'timeObj.year': now.getFullYear(),
@@ -69,7 +71,7 @@ Page({
     })
   },
   selectIcon(e) {
-    let index = e.currentTarget.dataset.index 
+    let index = e.currentTarget.dataset.index
     this.data.currentIconText = this.data.currentIcons[index].text
     this.setData({
       activeIconIndex: index
@@ -77,23 +79,40 @@ Page({
   },
   inputChange(e) {
     let v = e.detail.value
-    if(/^\d+(\.\d+)?$/.test(v)) {
+    let field = e.currentTarget.dataset.field
+    
+    if(field !== 'money') {
+      this.data.field = v
+      return v
+    }
+    if (/^\d+(\.\d+)?$/.test(v)) {
       this.setData({
-        money: v
+        money: v,
       })
     } else {
       wx.showToast({
         title: '格式错误',
         icon: 'error'
       })
-      return money
+      // return money
     }
   },
   add() {
-    let records = wx.getStorageSync('records')
-    if(!records) records = []
-    let obj = {text: this.data.currentIconText,money: parseFloat(this.data.money)}
-    records.push(obj)
+    let year = this.data.timeObj.year
+    let month = this.data.timeObj.month
+    let day = this.data.timeObj.day
+    let records = app.globalData.records ? app.globalData.records : { }
+    if(!records[year]) records[year] = {}
+    if(!records[year][month]) records[year][month] = []
+    let obj = {
+      text: this.data.currentIconText,
+      money: parseFloat(this.data.money),
+      remark: this.data.field,
+      type: this.data.tabIndex,
+      time: day
+    }
+    records[year][month].push(obj)
+    app.globalData.records = records
     wx.setStorageSync('records', records)
     wx.showToast({
       title: '保存成功',
