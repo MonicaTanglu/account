@@ -18,7 +18,7 @@ export const icons = {
     text: '购物',
     icon: 'shopping-cart'
   },{
-    text: '生活服务',
+    text: '生活',
     icon: 'tint'
   },{
     text: '娱乐',

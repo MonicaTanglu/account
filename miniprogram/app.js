@@ -21,6 +21,7 @@ App({
       this.globalData.category = category
     } else {
       wx.setStorageSync('category', iconData.icons)
+      wx.setStorageSync('update', true)
       this.globalData.category = iconData.icons
     }
     // this.globalData = {}

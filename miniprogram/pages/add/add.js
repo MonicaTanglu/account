@@ -60,7 +60,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.data.currentIconText = this.data.currentIcons[this.data.activeIconIndex].text
   },
   changeTab(e) {
     let index = e.currentTarget.dataset.index
@@ -98,12 +98,20 @@ Page({
     }
   },
   add() {
+    if(!this.data.money) {
+      wx.showToast({
+        title: '请填写金额！',
+        icon: 'none'
+      })
+      return
+    }
     let year = this.data.timeObj.year
     let month = this.data.timeObj.month
     let day = this.data.timeObj.day
     let records = app.globalData.records ? app.globalData.records : { }
     if(!records[year]) records[year] = {}
-    if(!records[year][month]) records[year][month] = []
+    if(!records[year][month]) records[year][month] = {}
+    if(!records[year][month][day]) records[year][month][day] = []
     let obj = {
       text: this.data.currentIconText,
       money: parseFloat(this.data.money),
@@ -111,9 +119,10 @@ Page({
       type: this.data.tabIndex,
       time: day
     }
-    records[year][month].push(obj)
+    records[year][month][day].push(obj)
     app.globalData.records = records
     wx.setStorageSync('records', records)
+    wx.setStorageSync('update', true)
     wx.showToast({
       title: '保存成功',
       icon: 'success'

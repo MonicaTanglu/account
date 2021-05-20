@@ -1,19 +1,23 @@
 <!--index.wxml-->
 
 <view class="container">
-  <top-header output="{{12582.21}}" input="{{857958.25}}" bind:timeChange="timeChange"></top-header>
-
-  <!-- <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-style="height: 20%" :z-index="1000">内容</van-popup> -->
+  <top-header  bind:timeChange="timeChange"></top-header>
 </view>
-<view class="m-t-10">
-    <van-empty wx:if="{{!records}}" description="暂无记录" />
-    <view wx:else>
-      <van-cell-group>
-        <van-cell wx:for="{{records}}" wx:for-index="index" wx:key="index" wx:for-item="item" title="{{item.text}}" label="{{item.remark}}" >
-          <text slot="icon" class="fa fa-{{iconObj[item.text]}}"></text>
-          <view>{{item.type === '1'? '-': '+'}}{{item.money}}</view>
-        </van-cell>
-
+<view>
+  <van-empty wx:if="{{!records}}" description="暂无记录" />
+  <view wx:else>
+    <block wx:for="{{records}}" wx:for-index="key" wx:key="key" wx:for-item="record">
+      <van-cell-group title="{{timeObj.year + '年' + timeObj.month + '月' + key}}日">
+        <van-swipe-cell id="swipe-cell" wx:for="{{record}}"
+            wx:for-index="index" wx:key="index" wx:for-item="item"
+          right-width="{{ 64 }}">
+          <van-cell class="{{item.type === '1'? 'item-output': 'item-input'}}" center  title="{{item.text}}" label="{{item.remark}}">
+            <text slot="icon" class="fa fa-{{iconObj[item.text]}}"></text>
+            <view class="item-money">{{item.type === '1'? '-': '+'}}{{item.money}}</view>
+          </van-cell>
+          <view slot="right" class="van-swipe-cell__right" bindtap="remove" data-index="{{index}}" data-day="{{key}}">删除</view>
+        </van-swipe-cell>
       </van-cell-group>
-    </view>
+    </block>
   </view>
+</view>

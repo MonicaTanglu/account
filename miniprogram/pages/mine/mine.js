@@ -24,13 +24,36 @@ Page({
     setTimeout(() => {
       wx.hideLoading({
         success: (res) => {
-          wx.showToast({
-            title: '同步完成',
-            icon: 'success'
+          wx.cloud.callFunction({
+            name: 'async',
+            data: {
+              category: app.globalData.category,
+              records: app.globalData.records
+            },
+            success: res => {
+              if (res.code === 200) {
+                let updated = wx.getStorageSync('updated')
+                if (!updated) {
+                  app.globalData.records = res.data.records
+                  app.globalData.category = res.data.category
+                  wx.setStorageSync('updated', false)
+                }
+                wx.showToast({
+                  title: '同步完成',
+                  icon: 'success'
+                })
+              } else {
+                wx.showToast({
+                  title: '同步失败',
+                  icon: 'success'
+                })
+              }
+              this.setData({
+                checked: false
+              })
+            }
           })
-          this.setData({
-            checked: false
-          })
+
         },
       })
     }, 2000);
@@ -56,7 +79,7 @@ Page({
       })
     }
   },
-  
+
 
   /**
    * 生命周期函数--监听页面隐藏

@@ -1,2 +1,41 @@
 <!--pages/statistics/statistics.wxml-->
-<text>pages/statistics/statistics.wxml</text>
+<view>
+  <top-header bind:timeChange="timeChange"></top-header>
+</view>
+<view>
+  <view class="card">
+    <view class="h2 h2-output">支出</view>
+    <view class="content m-t-10">
+      <view class="item" wx:for="{{outputObj}}" wx:for-index="key" wx:key="key" wx:for-item="output">
+        <text class="item-name">{{key}}</text>
+        <view class="item-chart"><van-progress percentage="{{output.percent}}" color="#FF2712" stroke-width="6" /></view>
+        <text class="item-value">{{output.money}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="h2 h2-input">收入</view>
+    <view class="content m-t-10">
+      <view class="item" wx:for="{{inputObj}}" wx:for-index="key" wx:key="key" wx:for-item="input">
+        <text class="item-name">{{key}}</text>
+        <view class="item-chart"><van-progress percentage="{{input.percent}}" color="#66B032" stroke-width="6" /></view>
+        <text class="item-value">{{input.money}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="h2 ">收入收支对比图</view>
+    <view class="content chart-content m-t-10">
+      <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ecLine }}"></ec-canvas>
+    </view>
+  </view>
+
+  <view class="card" style="margin-bottom:60px">
+    <view class="h2 ">支出分布图</view>
+    <view class="content chart-content m-t-10">
+      <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ecPie }}"></ec-canvas>
+    </view>
+  </view>
+</view>

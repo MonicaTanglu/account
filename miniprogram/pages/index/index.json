@@ -4,6 +4,7 @@
     "top-header": "/components/top-header/top-header",
     "van-empty": "@vant/weapp/empty/index",
     "van-cell": "@vant/weapp/cell/index",
-    "van-cell-group": "@vant/weapp/cell-group/index"
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index"
   }
 }

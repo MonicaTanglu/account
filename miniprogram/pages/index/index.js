@@ -27,24 +27,7 @@ Page({
   },
 
   onLoad: function () {
-    let now = new Date()
-    this.data.timeObj.year = now.getFullYear()
-    this.data.timeObj.month = now.getMonth() + 1
-    let records = app.globalData.records
-    for (let item of app.globalData.category.input) {
-      this.data.iconObj[item.text] = item.icon
-    }
-    for (let item of app.globalData.category.output) {
-      this.data.iconObj[item.text] = item.icon
-    }
-    if (records[this.data.timeObj.year]) {
-      this.setData({
-        records: records[this.data.timeObj.year][this.data.timeObj.month],
-        timeObj: this.data.timeObj,
-        iconObj: this.data.iconObj
-      })
 
-    }
     // let category = app.globalData.category
     // if(!category) {
     //   wx.setStorageSync('category', icons.icons)
@@ -65,10 +48,22 @@ Page({
   },
 
   onShow: function () {
+    let now = new Date()
+    this.data.timeObj.year = now.getFullYear()
+    this.data.timeObj.month = now.getMonth() + 1
     let records = app.globalData.records
-    if (records[this.data.timeObj.year] && records[this.data.timeObj.year][this.data.timeObj.month]) {
+    for (let item of app.globalData.category.input) {
+      this.data.iconObj[item.text] = item.icon
+    }
+    for (let item of app.globalData.category.output) {
+      this.data.iconObj[item.text] = item.icon
+    }
+    if (records[this.data.timeObj.year]) {
+      
       this.setData({
-        records: records[this.data.timeObj.year][this.data.timeObj.month]
+        records: records[this.data.timeObj.year][this.data.timeObj.month],
+        timeObj: this.data.timeObj,
+        iconObj: this.data.iconObj
       })
     }
 
@@ -87,5 +82,24 @@ Page({
     this.setData({
       timeObj: this.data.timeObj
     })
+  },
+  remove(e) {
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: (res) => {
+        if (res.confirm) {
+          let obj = e.currentTarget.dataset
+          this.data.records[obj.day].splice(obj.index, 1)
+          this.setData({
+            records: this.data.records
+          })
+          app.globalData.records[this.data.timeObj.year][this.data.timeObj.month] = this.data.records
+          wx.setStorageSync('records', app.globalData.records)
+          wx.setStorageSync('update', true)
+        }
+      }
+    })
+
   }
 })

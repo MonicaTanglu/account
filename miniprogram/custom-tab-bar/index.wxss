@@ -10,4 +10,5 @@
   text-align: center ;
   line-height: 50px ;
   font-size: 28px;
+  z-index: 1000;
 }

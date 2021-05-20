@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "统计",
+  "usingComponents": {
+    "van-progress": "@vant/weapp/progress/index",
+    "top-header": "/components/top-header/top-header",
+    "ec-canvas": "/components/ec-canvas/ec-canvas"
+  }
 }

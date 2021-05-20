@@ -1,1 +1,49 @@
 /* pages/statistics/statistics.wxss */
+.card {
+  margin: 10px;
+  background: #fff;
+  border-radius: 4px;
+  padding-bottom: 10px;
+}
+.card .h2 {
+  height: 30px;
+  line-height: 30px;
+  padding: 6px 16px;
+  border-bottom: 1px solid #d7d7d7;
+  font-weight: bold;
+  color: #333;
+} 
+.card .h2-output {
+  color: #FF2712;
+}
+.card .h2-input {
+  color: #66B032;
+}
+.card .item {
+  display: flex;
+  padding: 6px 16px;
+  align-items: center;
+}
+.card .item-name,.card .item-value {
+  width: 60px;
+  text-align: right;
+  color: #333;
+  font-size: 14px;
+  display: inline-block;
+  white-space: nowrap;
+}
+.card .item-name {
+  min-width: 60px;
+  padding-right: 10px;
+}
+.card .item-chart {
+  width: 100%;
+}
+
+.chart-content {
+  height: 300px;
+}
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}

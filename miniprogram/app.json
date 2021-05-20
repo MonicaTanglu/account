@@ -1,10 +1,10 @@
 {
   "pages": [
-    
+    "pages/statistics/statistics",
     "pages/index/index",
     "pages/mine/mine",
     
-    "pages/statistics/statistics",
+    
     "pages/category/category",
     "pages/add/add"
   ],
@@ -25,18 +25,12 @@
     "borderStyle": "black",
     "list": [{
       "pagePath": "pages/index/index",
-      "iconPath": "/assets/icons/list-alt.png",
-      "selectedIconPath": "/assets/icons/list-alt-selected.png",
       "text": "明细"
     },{
       "pagePath": "pages/statistics/statistics",
-      "iconPath": "/assets/icons/chart-pie.png",
-      "selectedIconPath": "/assets/icons/chart-pie-selected.png",
       "text": "统计"
     },{
       "pagePath": "pages/mine/mine",
-      "iconPath": "/assets/icons/cog.png",
-      "selectedIconPath": "/assets/icons/cog-selected.png",
       "text": "设置"
     }]
   }
