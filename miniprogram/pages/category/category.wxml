@@ -4,8 +4,8 @@
     <text class="output {{tabIndex === '1'? 'active-tab-output': ''}}" data-index="1" bindtap="changeTab">支出</text>
     <text class="input {{tabIndex === '2'? 'active-tab-input': ''}}" data-index="2" bindtap="changeTab">收入</text>
   </view>
-  <view>
 
+  <view class="m-t-10">
     <van-cell-group>
       <van-swipe-cell wx:for="{{currentIcons}}" wx:for-index="index" wx:key="index" wx:for-item="icon" id="swipe-cell"
         right-width="{{ 64 }}">
@@ -23,7 +23,7 @@
 
   </view>
   <view class="bottom-btn">
-    <van-button color="#FF2712" round bind:click="add">确定</van-button>
+    <van-button color="#FF2712" round bind:click="add">新增</van-button>
   </view>
 </view>
 
@@ -31,7 +31,7 @@
   <view class="pop-view">
     <view class="flex">
       <text>类名</text>
-      <input placeholder="请输入类名"  style="text-align:left" class="category-name" bindinput="inputChange" />
+      <input placeholder="请输入类名" style="text-align:left" class="category-name" bindinput="inputChange" />
     </view>
 
     <view class="type m-t-10">

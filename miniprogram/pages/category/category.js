@@ -12,6 +12,7 @@ Page({
     outputIcons: null,
     currentIcons: null,
     activeIconIndex: 1,
+    
     popShow: false,
     categoryObj: {
       icon: '',
@@ -88,7 +89,7 @@ Page({
     categoryList[type].push(obj)
     app.globalData.category = categoryList
     wx.setStorageSync('category', categoryList)
-    wx.setStorageSync('update', true)
+    wx.setStorageSync('categoryUpdated', true)
     this.setData({
       popShow: false,
       currentIcons: categoryList[type]
@@ -112,7 +113,7 @@ Page({
           let type = this.data.tabIndex === '1' ? 'output' : 'input'
           app.globalData.category[type] = this.data.currentIcons
           wx.setStorageSync('category', app.globalData.category)
-          wx.setStorageSync('update', true)
+          wx.setStorageSync('categoryUpdated', true)
           wx.showToast({
             title: '删除成功',
             icon: 'success'

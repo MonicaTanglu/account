@@ -1,11 +1,13 @@
 // pages/mine/mine.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    checked: false
+    checked: false,
+    loading: false,
   },
 
   /**
@@ -16,47 +18,71 @@ Page({
   },
   onChange(e) {
     this.setData({
-      checked: true
+      checked: true,
+      loading: true
     })
     wx.showLoading({
       title: '同步中',
     })
-    setTimeout(() => {
-      wx.hideLoading({
-        success: (res) => {
-          wx.cloud.callFunction({
-            name: 'async',
-            data: {
-              category: app.globalData.category,
-              records: app.globalData.records
-            },
-            success: res => {
-              if (res.code === 200) {
-                let updated = wx.getStorageSync('updated')
-                if (!updated) {
-                  app.globalData.records = res.data.records
-                  app.globalData.category = res.data.category
-                  wx.setStorageSync('updated', false)
-                }
-                wx.showToast({
-                  title: '同步完成',
-                  icon: 'success'
-                })
-              } else {
-                wx.showToast({
-                  title: '同步失败',
-                  icon: 'success'
-                })
-              }
-              this.setData({
-                checked: false
-              })
-            }
-          })
+    // setTimeout(() => {
+    //   wx.hideLoading({
+    //     success: (res) => {
+    let categoryUpdated = wx.getStorageSync('categoryUpdated')
+    let updated = wx.getStorageSync('updated')
+    let dataParams = {
+      records: app.globalData.records ? app.globalData.records : {}
+    }
+    if(categoryUpdated) {
+      dataParams['category'] = app.globalData.category ? app.globalData.category : {}
+    }
+    
+    wx.cloud.callFunction({
+      name: 'async',
+      data: dataParams,
+      success: res => {
+        wx.hideLoading()
+        if (res.result.code === 200) {
+          
+          if (!updated) {
+            app.globalData.records = res.result.data.records
+            app.globalData.category = res.result.data.category
+            wx.setStorageSync('records', app.globalData.records)
+            wx.setStorageSync('category', app.globalData.category)
+            wx.setStorageSync('updated', false)
+            wx.setStorageSync('categoryUpdated', false)
+          }
 
-        },
-      })
-    }, 2000);
+          wx.showToast({
+            title: '同步完成',
+            icon: 'success'
+          })
+        } else {
+          wx.showToast({
+            title: '同步失败',
+            icon: 'success'
+          })
+        }
+        this.setData({
+          checked: false,
+          loading: false
+        })
+      },
+      fail: (err) => {
+        wx.showToast({
+          title: '同步失败',
+          icon: 'success'
+        })
+        this.setData({
+          checked: false,
+          loading: false
+        })
+      }
+
+    })
+
+    //     },
+    //   })
+    // }, 2000);
   },
 
   /**

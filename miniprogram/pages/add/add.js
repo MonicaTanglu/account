@@ -26,7 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let icons = app.globalData.icons
+    let icons = app.globalData.category
     if (!icons) icons = iconData.icons
     let now = new Date()
     this.setData({
@@ -122,11 +122,16 @@ Page({
     records[year][month][day].push(obj)
     app.globalData.records = records
     wx.setStorageSync('records', records)
-    wx.setStorageSync('update', true)
+    wx.setStorageSync('updated', true)
     wx.showToast({
       title: '保存成功',
       icon: 'success'
     })
+    setTimeout(() => {
+      wx.navigateBack({
+        delta: 0,
+      })
+    }, 500);
   },
   /**
    * 生命周期函数--监听页面隐藏

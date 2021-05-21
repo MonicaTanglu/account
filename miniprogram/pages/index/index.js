@@ -34,7 +34,7 @@ Page({
     // }
   },
   buttontap(e) {
-    console.log(e.detail)
+    // console.log(e.detail)
   },
   openPicker() {
     this.setData({
@@ -51,7 +51,18 @@ Page({
     let now = new Date()
     this.data.timeObj.year = now.getFullYear()
     this.data.timeObj.month = now.getMonth() + 1
+    this.setRecords()
+
+    this.setBarSelected()
+  },
+  setRecords() {
     let records = app.globalData.records
+    if(!records) {
+      this.setData({
+        records: null
+      })
+      return
+    }
     for (let item of app.globalData.category.input) {
       this.data.iconObj[item.text] = item.icon
     }
@@ -59,15 +70,13 @@ Page({
       this.data.iconObj[item.text] = item.icon
     }
     if (records[this.data.timeObj.year]) {
-      
+
       this.setData({
         records: records[this.data.timeObj.year][this.data.timeObj.month],
         timeObj: this.data.timeObj,
         iconObj: this.data.iconObj
       })
     }
-
-    this.setBarSelected()
   },
   setBarSelected() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
@@ -82,6 +91,7 @@ Page({
     this.setData({
       timeObj: this.data.timeObj
     })
+    this.setRecords()
   },
   remove(e) {
     wx.showModal({
@@ -96,7 +106,7 @@ Page({
           })
           app.globalData.records[this.data.timeObj.year][this.data.timeObj.month] = this.data.records
           wx.setStorageSync('records', app.globalData.records)
-          wx.setStorageSync('update', true)
+          wx.setStorageSync('updated', true)
         }
       }
     })

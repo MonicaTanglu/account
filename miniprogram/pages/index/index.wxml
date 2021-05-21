@@ -3,7 +3,7 @@
 <view class="container">
   <top-header  bind:timeChange="timeChange"></top-header>
 </view>
-<view>
+<view style="margin-bottom:60px">
   <van-empty wx:if="{{!records}}" description="暂无记录" />
   <view wx:else>
     <block wx:for="{{records}}" wx:for-index="key" wx:key="key" wx:for-item="record">
@@ -15,7 +15,9 @@
             <text slot="icon" class="fa fa-{{iconObj[item.text]}}"></text>
             <view class="item-money">{{item.type === '1'? '-': '+'}}{{item.money}}</view>
           </van-cell>
-          <view slot="right" class="van-swipe-cell__right" bindtap="remove" data-index="{{index}}" data-day="{{key}}">删除</view>
+          <view slot="right" class="van-swipe-cell__right" bindtap="remove" data-index="{{index}}" data-day="{{key}}">
+            <text class="remove-text">删除</text>
+          </view>
         </van-swipe-cell>
       </van-cell-group>
     </block>

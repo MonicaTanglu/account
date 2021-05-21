@@ -29,11 +29,18 @@ Component({
 
   lifetimes: {
     ready() {
+      
+    }
+  },
+  pageLifetimes: {
+    show() {
       let now = new Date()
       this.setData({
         'timeObj.year': now.getFullYear(),
         'timeObj.month': now.getMonth() + 1
       })
+      this.data.input = 0 
+      this.data.output = 0
       this.getCalcMoney()
     }
   },
@@ -50,17 +57,37 @@ Component({
       this.setData({
         timeObj
       })
+      this.getCalcMoney()
       this.triggerEvent('timeChange', {
         year: timeObj.year,
         month: timeObj.month
       })
-      this.getCalcMoney()
+      
+    },
+    reset() {
+      this.data.output = 0
+      this.data.input = 0
+      app.globalData.records = null
+      this.setData({
+        input: this.data.input,
+        output: this.data.output
+      })
     },
     getCalcMoney() {
-      let records = app.globalData.records
-      if (!records) return
-      if (!records[this.data.timeObj.year]) return
-      if (!records[this.data.timeObj.year][this.data.timeObj.month]) return
+      let records = wx.getStorageSync('records')
+      if (!records) {
+        this.reset()
+        return
+      }
+      if (!records[this.data.timeObj.year]) {
+        this.reset()
+        return
+      }
+      if (!records[this.data.timeObj.year][this.data.timeObj.month]) {
+        this.reset()
+        return
+      }
+      app.globalData.records = records
       for (let key in records[this.data.timeObj.year][this.data.timeObj.month]) {
         for (let item of records[this.data.timeObj.year][this.data.timeObj.month][key]) {
           if (item.type === '1') {

@@ -15,10 +15,10 @@ function setLineChartOptions(lineXaxisData, lineOutputData, lineInputData) {
       type: 'category',
       data: lineXaxisData
     },
-    tooltip: {
-      show: true,
-      trigger: 'axis'
-    },
+    // tooltip: {
+    //   show: true,
+    //   trigger: 'axis'
+    // },
     yAxis: {
       x: 'center',
       type: 'value',
@@ -111,10 +111,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let now = new Date()
-    this.data.timeObj.year = now.getFullYear()
-    this.data.timeObj.month = now.getMonth() + 1
-    this.getCalcMoney()
+
   },
 
   /**
@@ -149,6 +146,7 @@ Page({
         break
     }
     let i = 1
+    this.data.lineXaxisData = []
     while (day > 0) {
       day--
       this.data.lineXaxisData.push(i)
@@ -208,6 +206,7 @@ Page({
     for (let key in this.data.inputObj) {
       this.data.inputObj[key]['percent'] = ((this.data.inputObj[key]['money'] * 100) / this.data.input).toFixed(2)
     }
+    this.data.pieData = []
     for (let key in this.data.outputObj) {
       this.data.pieData.push({
         name: key,
@@ -219,10 +218,10 @@ Page({
       inputObj: this.data.inputObj,
       outputObj: this.data.outputObj
     })
-    console.log('pieData', this.data.pieData)
+    // console.log('pieData', this.data.pieData)
     chartOptions = setPieChartOptions(this.data.pieData)
     if (chartPie) {
-      chartPie.setOption(this.data.pieData)
+      chartPie.setOption(chartOptions)
     }
     this.getLineData(this.data.timeObj.year, this.data.timeObj.month)
     // console.log(this.data.inputObj, this.data.outputObj)
@@ -233,14 +232,59 @@ Page({
     this.setData({
       timeObj: this.data.timeObj
     })
+    this.data.output = 0
+    this.data.input = 0
+    this.data.inputObj = {}
+    this.data.outputObj = {}
+    this.data.inputDayObj = {}
+    this.data.outputDayObj = {}
+    if(app.globalData.records) {
+      this.initData()
+    } else this.reset()
+    
+  },
+  initData() {
+   
+    this.data.output = 0
+    this.data.input = 0
+    this.data.inputObj = {}
+    this.data.outputObj = {}
+    this.data.inputDayObj = {}
+    this.data.outputDayObj = {}
     this.getCalcMoney()
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let now = new Date()
+    this.data.timeObj.year = now.getFullYear()
+    this.data.timeObj.month = now.getMonth() + 1
+    this.initData()
     this.setBarSelected()
+  },
+  reset() {
+    this.setData({
+      output: 0,
+      input: 0,
+      inputObj: {},
+      outputObj: {},
+      inputDayObj: {},
+      outputDayObj: {}
+    })
+    let arr = []
+    let length = this.data.lineXaxisData
+    while (length > 0) {
+      arr.push(0)
+        --length
+    }
+    // lineOptions = setLineChartOptions(this.data.lineXaxisData, arr, arr)
+    // chartLine.setOption(lineOptions)
+    chartLine.clear()
+    chartPie.clear()
+    // pieOptions = setPieChartOptions(null)
+    // chartPie.setOption(pieData)
+
   },
   setBarSelected() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {

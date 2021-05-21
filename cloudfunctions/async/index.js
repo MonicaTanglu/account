@@ -17,7 +17,7 @@ exports.main = async (event, context) => {
     openid: wxContext.OPENID
   }).get()
   let result;
-  if (res.data) {
+  if (res.data && res.data.length > 0) {
     result = await db.collection('account').where({
       openid: wxContext.OPENID
     }).update({
@@ -32,11 +32,11 @@ exports.main = async (event, context) => {
       data: params
     })
   }
-  if (result.stats.updated > 0 || result._id) {
+  if (result.stats || result._id) {
     let findList = await db.collection('account').where({openid:wxContext.OPENID}).get()
     return {
       err: '',
-      data: findList.data,
+      data: findList.data[0],
       code: 200
     }
   }
