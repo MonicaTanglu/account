@@ -57,7 +57,7 @@ Page({
   },
   setRecords() {
     let records = app.globalData.records
-    if(!records) {
+    if (!records) {
       this.setData({
         records: null
       })
@@ -100,7 +100,18 @@ Page({
       success: (res) => {
         if (res.confirm) {
           let obj = e.currentTarget.dataset
-          this.data.records[obj.day].splice(obj.index, 1)
+          let item = this.data.records[obj.day][obj.index]
+          this.selectComponent('#topHeader').setMoney({
+            type: item.type,
+            money: item.money
+          })
+
+          if (this.data.records[obj.day].length === 1) {
+            delete this.data.records[obj.day]
+          } else {
+            this.data.records[obj.day].splice(obj.index, 1)
+          }
+
           this.setData({
             records: this.data.records
           })

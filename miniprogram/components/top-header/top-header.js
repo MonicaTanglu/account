@@ -73,6 +73,17 @@ Component({
         output: this.data.output
       })
     },
+    setMoney(obj) {
+      if(obj.type === '1') {
+        this.setData({
+          output: this.data.output - obj.money
+        })
+      } else {
+        this.setData({
+          input: this.data.input - obj.money
+        })
+      }
+    },
     getCalcMoney() {
       let records = wx.getStorageSync('records')
       if (!records) {

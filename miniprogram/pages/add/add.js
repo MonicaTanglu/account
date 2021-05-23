@@ -80,27 +80,26 @@ Page({
   inputChange(e) {
     let v = e.detail.value
     let field = e.currentTarget.dataset.field
-    
-    if(field !== 'money') {
+
+    if (field !== 'money') {
       this.data.field = v
       return v
     }
-    if (/^\d+(\.\d+)?$/.test(v)) {
-      this.setData({
-        money: v,
-      })
-    } else {
-      wx.showToast({
-        title: '格式错误',
-        icon: 'error'
-      })
-      // return money
-    }
+    this.setData({
+      money: v,
+    })
   },
   add() {
-    if(!this.data.money) {
+    if (!this.data.money) {
       wx.showToast({
         title: '请填写金额！',
+        icon: 'none'
+      })
+      return
+    }
+    if (!/^\d+(\.\d+)?$/.test(this.data.money)) {
+      wx.showToast({
+        title: '金额格式不正确',
         icon: 'none'
       })
       return
@@ -108,10 +107,10 @@ Page({
     let year = this.data.timeObj.year
     let month = this.data.timeObj.month
     let day = this.data.timeObj.day
-    let records = app.globalData.records ? app.globalData.records : { }
-    if(!records[year]) records[year] = {}
-    if(!records[year][month]) records[year][month] = {}
-    if(!records[year][month][day]) records[year][month][day] = []
+    let records = app.globalData.records ? app.globalData.records : {}
+    if (!records[year]) records[year] = {}
+    if (!records[year][month]) records[year][month] = {}
+    if (!records[year][month][day]) records[year][month][day] = []
     let obj = {
       text: this.data.currentIconText,
       money: parseFloat(this.data.money),

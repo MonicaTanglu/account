@@ -1,10 +1,10 @@
 <!--index.wxml-->
-
+<wxs module="common" src="/utils/common.wxs"></wxs>
 <view class="container">
-  <top-header  bind:timeChange="timeChange"></top-header>
+  <top-header  bind:timeChange="timeChange" id="topHeader"></top-header>
 </view>
 <view style="margin-bottom:60px">
-  <van-empty wx:if="{{!records}}" description="暂无记录" />
+  <van-empty wx:if="{{!records || common.isEmptyObject(records)}}" description="暂无记录" />
   <view wx:else>
     <block wx:for="{{records}}" wx:for-index="key" wx:key="key" wx:for-item="record">
       <van-cell-group title="{{timeObj.year + '年' + timeObj.month + '月' + key}}日">
