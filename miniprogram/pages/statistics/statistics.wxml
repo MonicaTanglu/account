@@ -3,13 +3,14 @@
   <top-header bind:timeChange="timeChange"></top-header>
 </view>
 <view>
+  <wxs module="common" src="/utils/common.wxs"></wxs>
   <view class="card">
     <view class="h2 h2-output">支出</view>
     <view class="content m-t-10">
       <view class="item" wx:for="{{outputObj}}" wx:for-index="key" wx:key="key" wx:for-item="output">
         <text class="item-name">{{key}}</text>
         <view class="item-chart"><van-progress percentage="{{output.percent}}" color="#FF2712" stroke-width="6" /></view>
-        <text class="item-value">{{output.money}}</text>
+        <text class="item-value">{{common.twoDecimal(output.money)}}</text>
       </view>
     </view>
   </view>
@@ -20,7 +21,7 @@
       <view class="item" wx:for="{{inputObj}}" wx:for-index="key" wx:key="key" wx:for-item="input">
         <text class="item-name">{{key}}</text>
         <view class="item-chart"><van-progress percentage="{{input.percent}}" color="#66B032" stroke-width="6" /></view>
-        <text class="item-value">{{input.money}}</text>
+        <text class="item-value">{{common.twoDecimal(input.money)}}</text>
       </view>
     </view>
   </view>
