@@ -67,7 +67,7 @@ Component({
     reset() {
       this.data.output = 0
       this.data.input = 0
-      app.globalData.records = null
+      // app.globalData.records = null
       this.setData({
         input: this.data.input,
         output: this.data.output
@@ -85,17 +85,18 @@ Component({
       }
     },
     getCalcMoney() {
+      this.reset()
       let records = wx.getStorageSync('records')
       if (!records) {
-        this.reset()
+       
         return
       }
       if (!records[this.data.timeObj.year]) {
-        this.reset()
+        // this.reset()
         return
       }
       if (!records[this.data.timeObj.year][this.data.timeObj.month]) {
-        this.reset()
+        // this.reset()
         return
       }
       app.globalData.records = records

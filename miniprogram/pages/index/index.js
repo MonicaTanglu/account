@@ -69,7 +69,7 @@ Page({
   },
   setRecords() {
     let records = app.globalData.records
-    if (!records) {
+    if (!records[this.data.timeObj.year] || !records[this.data.timeObj.year][this.data.timeObj.month]) {
       this.setData({
         records: null
       })
