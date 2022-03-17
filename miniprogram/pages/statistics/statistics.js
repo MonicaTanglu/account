@@ -151,15 +151,17 @@ Page({
       day--
       this.data.lineXaxisData.push(i)
       if (this.data.outputDayObj[day]) {
-        this.data.lineOutputData.push(this.data.outputDayObj[day])
-      } else this.data.lineOutputData.push(0)
+        this.data.lineOutputData[day] = this.data.outputDayObj[day]
+      } else this.data.lineOutputData[day] = 0
 
       if (this.data.inputDayObj[day]) {
-        this.data.lineInputData.push(this.data.inputDayObj[day])
-      } else this.data.lineInputData.push(0)
+        this.data.lineInputData[day] = this.data.inputDayObj[day]
+      } else this.data.lineInputData[day] = 0
         ++i
     }
+   
     let option = setLineChartOptions(this.data.lineXaxisData, this.data.lineOutputData, this.data.lineInputData)
+    console.log(this.data.lineXaxisData,this.data.lineOutputData,this.data.lineInputData)
     if (chartLine) {
       chartLine.setOption(option)
     } else {

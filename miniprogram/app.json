@@ -6,7 +6,8 @@
     "pages/statistics/statistics",
     
     "pages/category/category",
-    "pages/add/add"
+    "pages/add/add",
+    "pages/about/about"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -8,6 +8,7 @@ Page({
   data: {
     checked: false,
     loading: false,
+    fileUrl: ''
   },
 
   /**
@@ -27,22 +28,95 @@ Page({
     // setTimeout(() => {
     //   wx.hideLoading({
     //     success: (res) => {
+    // let categoryUpdated = wx.getStorageSync('categoryUpdated')
+    // let updated = wx.getStorageSync('updated')
+    // let dataParams = {
+    //   records: app.globalData.records ? app.globalData.records : {}
+    // }
+    // if (categoryUpdated) {
+    //   dataParams['category'] = app.globalData.category ? app.globalData.category : {}
+    // }
+
+    // wx.cloud.callFunction({
+    //   name: 'async',
+    //   data: dataParams,
+    //   success: res => {
+    //     wx.hideLoading()
+    //     if (res.result.code === 200) {
+
+    //       if (!updated) {
+    //         app.globalData.records = res.result.data.records
+    //         app.globalData.category = res.result.data.category
+    //         wx.setStorageSync('records', app.globalData.records)
+    //         wx.setStorageSync('category', app.globalData.category)
+    //         wx.setStorageSync('updated', false)
+    //         wx.setStorageSync('categoryUpdated', false)
+    //       }
+
+    //       wx.showToast({
+    //         title: '同步完成',
+    //         icon: 'success'
+    //       })
+    //     } else {
+    //       wx.showToast({
+    //         title: '同步失败',
+    //         icon: 'success'
+    //       })
+    //     }
+    //     this.setData({
+    //       checked: false,
+    //       loading: false
+    //     })
+    //   },
+    //   fail: (err) => {
+    //     wx.showToast({
+    //       title: '同步失败',
+    //       icon: 'error'
+    //     })
+    //     this.setData({
+    //       checked: false,
+    //       loading: false
+    //     })
+    //   }
+
+    // })
+    this.asyncData((bl) => {
+      if (bl) {
+        wx.showToast({
+          title: '同步完成',
+          icon: 'success'
+        })
+      } else {
+        wx.showToast({
+          title: '同步失败',
+          icon: 'error'
+        })
+      }
+      this.setData({
+        checked: false,
+        loading: false
+      })
+    })
+
+    //     },
+    //   })
+    // }, 2000);
+  },
+  asyncData(cb) {
     let categoryUpdated = wx.getStorageSync('categoryUpdated')
     let updated = wx.getStorageSync('updated')
     let dataParams = {
       records: app.globalData.records ? app.globalData.records : {}
     }
-    if(categoryUpdated) {
+    if (categoryUpdated) {
       dataParams['category'] = app.globalData.category ? app.globalData.category : {}
     }
-    
     wx.cloud.callFunction({
       name: 'async',
       data: dataParams,
       success: res => {
         wx.hideLoading()
         if (res.result.code === 200) {
-          
           if (!updated) {
             app.globalData.records = res.result.data.records
             app.globalData.category = res.result.data.category
@@ -51,38 +125,79 @@ Page({
             wx.setStorageSync('updated', false)
             wx.setStorageSync('categoryUpdated', false)
           }
-
-          wx.showToast({
-            title: '同步完成',
-            icon: 'success'
-          })
+          cb(true)
         } else {
-          wx.showToast({
-            title: '同步失败',
-            icon: 'success'
-          })
+          cb(false)
         }
-        this.setData({
-          checked: false,
-          loading: false
-        })
       },
       fail: (err) => {
-        wx.showToast({
-          title: '同步失败',
-          icon: 'success'
-        })
-        this.setData({
-          checked: false,
-          loading: false
-        })
+        wx.hideLoading()
+        cb(false)
       }
 
     })
+  },
+  export () {
+    wx.showLoading({
+      title: '生成中',
+    })
+    this.asyncData((bl) => {
+      if (bl) {
+        wx.cloud.callFunction({
+          name: 'export',
+          success: (res) => {
+            wx.hideLoading()
+            this.getFileUrl(res.result.fileID)
 
-    //     },
-    //   })
-    // }, 2000);
+          },
+          fail: (err) => {
+            console.log(err)
+            wx.showToast({
+              title: '生成失败',
+              icon: 'success'
+            })
+          }
+        })
+      } else {
+        wx.showToast({
+          title: '生成失败',
+          icon: 'success'
+        })
+      }
+    })
+
+  },
+  getFileUrl(fileId) {
+    wx.cloud.getTempFileURL({
+      fileList: [fileId],
+      success: res => {
+        this.setData({
+          fileUrl: res.fileList[0].tempFileURL
+        })
+      },
+      fail: (err) => {
+        console.log(err)
+        wx.showToast({
+          title: '生成失败',
+          icon: 'success'
+        })
+      }
+    })
+  },
+  copy() {
+    let that = this
+    wx.setClipboardData({
+      data: that.data.fileUrl,
+      success: () => {
+        wx.getClipboardData({
+          success: () => {
+            wx.showToast({
+              title: '复制成功',
+            })
+          },
+        })
+      }
+    })
   },
 
   /**
