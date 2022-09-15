@@ -1,13 +1,13 @@
 <!--pages/mine/mine.wxml-->
 <view>
   <van-cell-group class="m-t-10">
-    <van-cell title="同步">
+    <!-- <van-cell title="同步">
       <van-switch checked="{{ checked }}" size="20px" bind:change="onChange" loading="{{loading}}" />
-    </van-cell>
+    </van-cell> -->
 
     <van-cell title="类别管理" is-link url="/pages/category/category" />
-    <van-cell title="导出excel" is-link bind:click="export" />
-    <!-- <van-cell title="说明" is-link url="/pages/about/about" /> -->
+    <!-- <van-cell title="导出excel" is-link bind:click="export" /> -->
+    <van-cell title="说明" is-link url="/pages/about/about" />
   </van-cell-group>
 
   <view wx:if="{{fileUrl}}" style="margin-top:20px;padding: 20px;">
